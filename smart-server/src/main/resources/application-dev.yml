@@ -1,0 +1,9 @@
+smart:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    driver-class-name: com.mysql.jdbc.Driver
+    host: 39.100.253.129
+    port: 3306
+    database: smart_clinic
+    username: root
+    password: root
