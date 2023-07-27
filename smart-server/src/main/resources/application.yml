@@ -7,12 +7,13 @@ spring:
   main:
     #禁用循环依赖
     allow-circular-references: true
-#  datasource:
-#    druid:
-#      driver-class-name: ${}
-#      url:
-#      username:
-#      password:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: ${smart.datasource.driver-class-name}
+    url: jdbc:mysql://${smart.datasource.host}:${smart.datasource.port}/${smart.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${smart.datasource.username}
+    password: ${smart.datasource.password}
+
 
 mybatis:
   #mapper配置
