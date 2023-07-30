@@ -1,0 +1,29 @@
+package com.ybb.handler;
+
+import com.ybb.exception.base.SmartBaseException;
+import com.ybb.result.Result;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.sql.SQLException;
+
+@RestControllerAdvice
+@Slf4j
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(SmartBaseException.class)
+    public Result<String> exceptionHandler(SmartBaseException ex){
+        log.info("全局捕获业务异常: {}", ex.getMessage());
+        return Result.error(ex.getMessage());
+    }
+
+    @ExceptionHandler({SQLException.class})
+    public Result<String> exceptionHandler(SQLException ex){
+        log.info("全局捕获Sql异常: {}", ex.getMessage());
+        return Result.error(ex.getMessage());
+    }
+
+    //..
+
+}
