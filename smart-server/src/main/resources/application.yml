@@ -6,9 +6,6 @@ server:
 spring:
   profiles:
     active: dev
-  http:
-    encoding:
-      charset: utf-8
   main:
     #禁用循环依赖
     allow-circular-references: true
