@@ -1,4 +1,4 @@
-package com.ybb.exception;
+package com.ybb.exception.account;
 
 import com.ybb.exception.base.SmartBaseException;
 

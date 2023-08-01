@@ -22,7 +22,7 @@ public class JwtUtil {
      */
     public static String createJWT(String secretKey, long ttlMillis, Map<String, Object> claims){
         //指定算法名称
-        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.ES256;
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         //生成Jwt的时间
         long expMillis = System.currentTimeMillis() + ttlMillis;
         Date exp = new Date(expMillis);

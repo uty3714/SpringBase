@@ -13,13 +13,13 @@ import java.sql.SQLException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(SmartBaseException.class)
-    public Result<String> exceptionHandler(SmartBaseException ex){
+    public String exceptionHandler(SmartBaseException ex){
         log.info("全局捕获业务异常: {}", ex.getMessage());
         return Result.error(ex.getMessage());
     }
 
-    @ExceptionHandler({SQLException.class})
-    public Result<String> exceptionHandler(SQLException ex){
+    @ExceptionHandler
+    public String exceptionHandler(SQLException ex){
         log.info("全局捕获Sql异常: {}", ex.getMessage());
         return Result.error(ex.getMessage());
     }

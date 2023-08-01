@@ -1,16 +1,21 @@
 server:
   port: 9958
+#  servlet:
+#    context-path: /sc
 
 spring:
   profiles:
     active: dev
+  http:
+    encoding:
+      charset: utf-8
   main:
     #禁用循环依赖
     allow-circular-references: true
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: ${smart.datasource.driver-class-name}
-    url: jdbc:mysql://${smart.datasource.host}:${smart.datasource.port}/${smart.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${smart.datasource.host}:${smart.datasource.port}/${smart.datasource.database}?characterEncoding=UTF-8&useAffectedRows=true&serverTimezone=GMT%2B8
     username: ${smart.datasource.username}
     password: ${smart.datasource.password}
 
