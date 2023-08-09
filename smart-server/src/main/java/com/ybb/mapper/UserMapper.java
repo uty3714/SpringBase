@@ -15,5 +15,6 @@ public interface UserMapper {
     //@Select("SELECT user_id,clinic_id,user_name, user_pwd,doctor_name,user_sex, user_id_card, user_phone, user_role, user_remark FROM tab_user WHERE clinic_id = #{clinicId} AND user_name = #{userName};")
     TabUserEntity getUserByUserName(String clinicId,String userName);
 
+    TabUserEntity getUserByUserId(Long userId);
 
 }

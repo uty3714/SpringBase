@@ -1,15 +1,19 @@
 package com.ybb.service.impl;
 
 import com.alibaba.druid.util.StringUtils;
+import com.ybb.constant.JwtClaimsConstant;
 import com.ybb.constant.MessageConstant;
 import com.ybb.constant.StatusConstant;
+import com.ybb.context.BaseContext;
 import com.ybb.dto.UserLoginDTO;
+import com.ybb.dto.UserTokenLoginDTO;
 import com.ybb.entity.TabUserEntity;
-import com.ybb.exception.account.AccountNotFoundException;
-import com.ybb.exception.account.PasswordIncorrectException;
-import com.ybb.exception.account.UserDisableException;
+import com.ybb.exception.account.*;
 import com.ybb.mapper.UserMapper;
+import com.ybb.properties.JwtProperties;
 import com.ybb.service.IUserService;
+import com.ybb.utils.JwtUtil;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,10 +27,19 @@ public class UserServiceImpl implements IUserService {
 
     private UserMapper mUserMapper;
 
+    private JwtProperties jwtProperties;
+
+
     @Autowired
     public void setUserMapper(UserMapper userMapper) {
         this.mUserMapper = userMapper;
     }
+    @Autowired
+    public void setJwtProperties(JwtProperties jwtProperties){
+        this.jwtProperties = jwtProperties;
+    }
+
+
 
     /**
      * 用户登录
@@ -52,4 +65,28 @@ public class UserServiceImpl implements IUserService {
         }
         return tabUserEntity;
     }
+
+
+    @Override
+    public TabUserEntity tokenLogin(UserTokenLoginDTO tokenLoginDTO) {
+        log.info("解析token: {}", tokenLoginDTO.getToken());
+        Claims claims = JwtUtil.parseJWT(jwtProperties.getJwtSecretKey(), tokenLoginDTO.getToken());
+        if (claims != null && claims.size() > 0) {
+            String currentUserId = String.valueOf(claims.get(JwtClaimsConstant.USER_ID));
+            if(StringUtils.isEmpty(currentUserId)){
+                throw new UserInfoDataException(MessageConstant.CURRENT_USER_ID + null + MessageConstant.DATA_EXCEPTION);
+            }
+            TabUserEntity tabUserEntity = mUserMapper.getUserByUserId(Long.valueOf(currentUserId));
+            if (tabUserEntity == null) {
+                throw new AccountNotFoundException(MessageConstant.CURRENT_USER_ID + currentUserId + MessageConstant.ACCOUNT_NOT_FOUND);
+            }
+            if (StatusConstant.DISABLE.equals(tabUserEntity.getUserStatus())) {
+                throw new UserDisableException(MessageConstant.CURRENT_USER_ID + currentUserId + MessageConstant.DISABLE_STATUS);
+            }
+            return tabUserEntity;
+        }else{
+            throw new UserTokenParseException(MessageConstant.USER_TOKEN_PARSE_ERROR);
+        }
+    }
+
 }

@@ -18,8 +18,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Slf4j
 public class JwtApiTokenInterceptor implements HandlerInterceptor {
 
-    @Autowired
+
     private JwtProperties jwtProperties;
+    @Autowired
+    public void setJwtProperties(JwtProperties jwtProperties){
+        this.jwtProperties = jwtProperties;
+    }
 
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
