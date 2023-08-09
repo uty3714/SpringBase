@@ -14,7 +14,6 @@ import lombok.ToString;
 @NoArgsConstructor
 public class UserLoginDTO {
 
-    private String clinicId;
     private String userName;
     private String passWord;
 

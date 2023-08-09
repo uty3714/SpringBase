@@ -49,7 +49,7 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public TabUserEntity login(UserLoginDTO userLoginDTO) {
-        TabUserEntity tabUserEntity = mUserMapper.getUserByUserName(userLoginDTO.getClinicId(), userLoginDTO.getUserName());
+        TabUserEntity tabUserEntity = mUserMapper.getUserByUserName(userLoginDTO.getUserName());
         log.info("查询登陆用户结果: {}" , tabUserEntity);
         if (tabUserEntity == null) {
             throw new AccountNotFoundException(userLoginDTO.getUserName() + MessageConstant.ACCOUNT_NOT_FOUND);
@@ -66,7 +66,11 @@ public class UserServiceImpl implements IUserService {
         return tabUserEntity;
     }
 
-
+    /**
+     * 用户token登录
+     * @param tokenLoginDTO token dto
+     * @return 当前用户信息
+     */
     @Override
     public TabUserEntity tokenLogin(UserTokenLoginDTO tokenLoginDTO) {
         log.info("解析token: {}", tokenLoginDTO.getToken());
