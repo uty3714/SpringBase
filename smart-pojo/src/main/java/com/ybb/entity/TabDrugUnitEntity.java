@@ -14,7 +14,7 @@ import java.util.Date;
 public class TabDrugUnitEntity {
 
     /*
-    `unit_id` varchar(50) NOT NULL COMMENT '单位ID',
+    `unit_id` int NOT NULL COMMENT '单位ID',
     `clinic_id` varchar(50) NOT NULL COMMENT '诊所ID',
     `unit_name` varchar(50) NOT NULL COMMENT '单位名称',
     `unit_category` int(11) NOT NULL COMMENT '单位分类 1包装单位2基础单位3计量单位',
@@ -30,7 +30,7 @@ public class TabDrugUnitEntity {
     /**
      * 单位ID
      */
-    private String unitId;
+    private Integer unitId;
     /**
      * 诊所ID
      */

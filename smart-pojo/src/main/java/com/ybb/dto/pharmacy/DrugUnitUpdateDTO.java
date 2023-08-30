@@ -18,7 +18,7 @@ public class DrugUnitUpdateDTO {
     /**
      * 单位ID
      */
-    private String unitId;
+    private Integer unitId;
     /**
      * 诊所ID
      */

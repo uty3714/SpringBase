@@ -36,6 +36,6 @@ public interface IDrugUnitService {
      * @param unitId 单位id
      * @return bool
      */
-    boolean deleteDrugUnitInfo(String unitId);
+    boolean deleteDrugUnitInfo(Integer unitId);
 
 }

@@ -87,7 +87,7 @@ public class DrugUnitController {
      * @return {}
      */
     @PostMapping("/delete/{unitId}")
-    public String deleteDrugUnit(@PathVariable String unitId){
+    public String deleteDrugUnit(@PathVariable Integer unitId){
         log.info("删除药品单位信息: {}", unitId);
         boolean result = drugUnitService.deleteDrugUnitInfo(unitId);
         if(result){

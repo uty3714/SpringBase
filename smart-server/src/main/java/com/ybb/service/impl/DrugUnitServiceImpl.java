@@ -45,8 +45,6 @@ public class DrugUnitServiceImpl implements IDrugUnitService {
         //构造数据
         TabDrugUnitEntity drugUnitEntity = new TabDrugUnitEntity();
         BeanUtils.copyProperties(drugUnitDTO, drugUnitEntity);
-        String unitId = UUIDUtil.get().getUUID();
-        drugUnitEntity.setUnitId(unitId);
         drugUnitEntity.setUnitStatus(StatusConstant.ENABLE);
         SmartContextData contextData = BaseContext.getCurrentData();
         drugUnitEntity.setCreateUser(contextData.getUserId());
@@ -73,7 +71,6 @@ public class DrugUnitServiceImpl implements IDrugUnitService {
                 drugUnitVOS.add(drugUnitVO);
             }
         }
-        log.info("测试长度: {}", drugUnitVOS.size());
         return drugUnitVOS;
     }
 
@@ -102,7 +99,7 @@ public class DrugUnitServiceImpl implements IDrugUnitService {
      * @return bool
      */
     @Override
-    public boolean deleteDrugUnitInfo(String unitId) {
+    public boolean deleteDrugUnitInfo(Integer unitId) {
         SmartContextData contextData = BaseContext.getCurrentData();
         String clinicId = contextData.getClinicId();
         DrugUnitUpdateDTO drugUnitUpdateDTO = new DrugUnitUpdateDTO();

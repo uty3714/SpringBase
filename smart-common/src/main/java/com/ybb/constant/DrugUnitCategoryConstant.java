@@ -8,15 +8,15 @@ public class DrugUnitCategoryConstant {
     /**
      * 包装单位
      */
-    public static final Integer UNIT_PACKAGE = 1;
+    public static final int UNIT_PACKAGE = 1;
     /**
      * 基础单位
      */
-    public static final Integer UNIT_BASE = 2;
+    public static final int UNIT_BASE = 2;
     /**
      * 计量单位
      */
-    public static final Integer UNIT_MEASURE = 3;
+    public static final int UNIT_MEASURE = 3;
 
 
 }
