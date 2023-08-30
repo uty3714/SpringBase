@@ -15,6 +15,10 @@ spring:
     url: jdbc:mysql://${smart.datasource.host}:${smart.datasource.port}/${smart.datasource.database}?characterEncoding=UTF-8&useAffectedRows=true&serverTimezone=GMT%2B8
     username: ${smart.datasource.username}
     password: ${smart.datasource.password}
+  data:
+    redis:
+      host: ${smart.redis.host}
+      port: ${smart.redis.port}
 
 
 mybatis:
@@ -42,3 +46,5 @@ ybb:
     jwt-ttl: 7200000
     # 设置前端传递过来的令牌名称
     jwt-token-name: token
+    # 设置诊所id名称
+    jwt-clinic-name: clinic

@@ -1,7 +1,9 @@
 package com.ybb.interceptor;
 
+import com.alibaba.druid.util.StringUtils;
 import com.ybb.constant.JwtClaimsConstant;
 import com.ybb.context.BaseContext;
+import com.ybb.context.SmartContextData;
 import com.ybb.properties.JwtProperties;
 import com.ybb.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
@@ -24,14 +26,9 @@ public class JwtApiTokenInterceptor implements HandlerInterceptor {
         this.jwtProperties = jwtProperties;
     }
 
-    public JwtApiTokenInterceptor() {
-        log.info("注入构造jwt");
-    }
-
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //判断当前拦截到的是Controller的方法还是其他资源
-        log.info("jwt拦截器===>");
         if (!(handler instanceof HandlerMethod)) {
             //当前拦截到的不是动态方法，直接放行
             return true;
@@ -39,6 +36,11 @@ public class JwtApiTokenInterceptor implements HandlerInterceptor {
 
         //从请求头中获取令牌
         String jwtToken = request.getHeader(jwtProperties.getJwtTokenName());
+        String clinicId = request.getHeader(jwtProperties.getJwtClinicName());
+        if(StringUtils.isEmpty(clinicId)){
+            log.info("jwt校验: clinicId为空!");
+            return false;
+        }
         //校验token
         log.info("jwt校验: {}", jwtToken);
         Claims claims = JwtUtil.parseJWT(jwtProperties.getJwtSecretKey(), jwtToken);
@@ -46,7 +48,8 @@ public class JwtApiTokenInterceptor implements HandlerInterceptor {
             String currentUserId = String.valueOf(claims.get(JwtClaimsConstant.USER_ID));
             log.info("jwt校验通过,当前用户Id是: {}", currentUserId);
             //保存到当前线程
-            BaseContext.setCurrentUserId(currentUserId);
+            SmartContextData contextData = new SmartContextData(currentUserId, clinicId);
+            BaseContext.setCurrentData(contextData);
             return true;
         }else{
             log.info("jwt校验不通过,当前用户Id是 null");

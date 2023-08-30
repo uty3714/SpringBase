@@ -7,3 +7,6 @@ smart:
     database: smart_clinic
     username: root
     password: root
+  redis:
+    host: 39.100.253.129
+    port: 6379

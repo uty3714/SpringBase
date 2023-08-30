@@ -1,11 +1,14 @@
 package com.ybb.service.impl;
 
+import com.alibaba.druid.util.StringUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.ybb.constant.StatusConstant;
 import com.ybb.context.BaseContext;
+import com.ybb.context.SmartContextData;
 import com.ybb.dto.patient.PatientDTO;
 import com.ybb.dto.patient.PatientQueryDTO;
+import com.ybb.dto.patient.PatientUpdateDTO;
 import com.ybb.entity.TabPatientEntity;
 import com.ybb.mapper.PatientMapper;
 import com.ybb.result.PageResult;
@@ -19,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -58,16 +62,15 @@ public class PatientServiceImpl implements IPatientService {
         entity.setPatientTotalArrears(0);
         //状态
         entity.setPatientStatus(StatusConstant.ENABLE);
-        String currentUser = BaseContext.getCurrentUserId();
-        entity.setCreateUser(currentUser);
-        entity.setUpdateUser(currentUser);
+        SmartContextData currentData = BaseContext.getCurrentData();
+        entity.setCreateUser(currentData.getUserId());
+        entity.setUpdateUser(currentData.getUserId());
         Date now = Calendar.getInstance().getTime();
         entity.setCreateTime(now);
         entity.setCreateTime(now);
         //保存数据库
-        patientMapper.addNewPatient(entity);
-        log.debug("新增的患者id: {}", patientId);
-        return true;
+        int rowResult = patientMapper.addNewPatient(entity);
+        return rowResult > 0;
     }
 
 
@@ -99,5 +102,28 @@ public class PatientServiceImpl implements IPatientService {
             patientVOPageResult.setRecords(patientVOList);
         }
         return patientVOPageResult;
+    }
+
+    /**
+     * 修改患者信息
+     *
+     * @param patientUpdateDTO 要修改的信息
+     * @return 修改结果
+     */
+    @Override
+    public boolean updatePatientInfo(PatientUpdateDTO patientUpdateDTO) {
+        //重新设置一下简称
+        if (StringUtils.isEmpty(patientUpdateDTO.getPatientSortName())) {
+            String sortName = PinyinUtil.converterToFirstSpell(patientUpdateDTO.getPatientName());
+            patientUpdateDTO.setPatientSortName(sortName);
+        }
+        //更新用户id
+        SmartContextData contextData = BaseContext.getCurrentData();
+        patientUpdateDTO.setUpdateUser(contextData.getUserId());
+        //更新时间
+        Date updateDate = Calendar.getInstance().getTime();
+        patientUpdateDTO.setUpdateTime(updateDate);
+        int rowResult = patientMapper.updatePatientInfo(patientUpdateDTO);
+        return rowResult > 0;
     }
 }

@@ -60,8 +60,32 @@
             <if test="patientIdCard != null and '' != patientIdCard">
                 or patient_id_card like concat('%',#{patientIdCard},'%')
             </if>
-            and clinic_id = #{clinicId}
+            and clinic_id = #{clinicId} and patient_status = 1
         </where>
     </select>
+
+    <update id="updatePatientInfo" parameterType="com.ybb.dto.patient.PatientUpdateDTO">
+        update tab_patient_main
+        <set>
+            <if test="patientName != null">patient_name = #{patientName}, </if>
+            <if test="patientSortName != null">patient_sort_name = #{patientSortName}, </if>
+            <if test="patientSex != null">patient_sex = #{patientSex}, </if>
+            <if test="patientAge != null">patient_age = #{patientAge}, </if>
+            <if test="patientBirthday != null">patient_birthday = #{patientBirthday}, </if>
+            <if test="patientPhone != null">patient_phone = #{patientPhone}, </if>
+            <if test="patientIdCard != null">patient_id_card = #{patientIdCard}, </if>
+            <if test="patientAddress != null">patient_address = #{patientAddress}, </if>
+            <if test="patientIllHistory != null">patient_ill_history = #{patientIllHistory}, </if>
+            <if test="patientAllergicHistory != null">patient_allergic_history = #{patientAllergicHistory}, </if>
+            <if test="patientDiagnose != null">patient_diagnose = #{patientDiagnose}, </if>
+            <if test="patientTotalArrears != null">patient_total_arrears = #{patientTotalArrears}, </if>
+            <if test="patientRemark != null">patient_remark = #{patientRemark}, </if>
+            <if test="patientStatus != null">patient_status = #{patientStatus}, </if>
+            <if test="updateUser != null">update_user = #{updateUser}, </if>
+            <if test="updateTime != null">update_time = #{updateTime}, </if>
+        </set>
+        where clinic_id = #{clinicId} and patient_id = #{patientId}
+    </update>
+
 
 </mapper>

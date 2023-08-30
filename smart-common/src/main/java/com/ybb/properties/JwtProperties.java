@@ -14,5 +14,6 @@ public class JwtProperties {
     private String jwtSecretKey;
     private Long jwtTtl;
     private String jwtTokenName;
+    private String jwtClinicName;
 
 }

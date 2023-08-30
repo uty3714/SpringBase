@@ -3,6 +3,7 @@ package com.ybb.service;
 import com.github.pagehelper.Page;
 import com.ybb.dto.patient.PatientDTO;
 import com.ybb.dto.patient.PatientQueryDTO;
+import com.ybb.dto.patient.PatientUpdateDTO;
 import com.ybb.result.PageResult;
 import com.ybb.vo.PatientVO;
 
@@ -23,5 +24,11 @@ public interface IPatientService {
      */
     PageResult<PatientVO> queryPatientInfo(PatientQueryDTO patientQueryDTO);
 
+    /**
+     * 修改患者信息
+     * @param patientUpdateDTO 要修改的信息
+     * @return 修改结果
+     */
+    boolean updatePatientInfo(PatientUpdateDTO patientUpdateDTO);
 
 }

@@ -5,13 +5,13 @@ package com.ybb.context;
  */
 public class BaseContext {
 
-    private static final ThreadLocal<String> sThreadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<SmartContextData> sThreadLocal = new ThreadLocal<>();
 
-    public static void setCurrentUserId(String userId){
-        sThreadLocal.set(userId);
+    public static void setCurrentData(SmartContextData data){
+        sThreadLocal.set(data);
     }
 
-    public static String getCurrentUserId(){
+    public static SmartContextData getCurrentData(){
         return sThreadLocal.get();
     }
 
