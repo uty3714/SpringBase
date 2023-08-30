@@ -43,7 +43,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         log.info("开始注册自定义拦截器");
         //api的拦截
         registry.addInterceptor(jwtApiTokenInterceptor)
-                .addPathPatterns("api/**")
+                .addPathPatterns("/api/**")
                 .excludePathPatterns("/api/user/login");
 
         //后台的拦截写这里
