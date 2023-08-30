@@ -2,6 +2,8 @@ package com.ybb.handler;
 
 import com.ybb.exception.base.SmartBaseException;
 import com.ybb.result.Result;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.SignatureException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,7 +28,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler
-    public String exceptionHandler(SignatureException ex){
+    public String exceptionHandler(JwtException ex){
         log.info("全局捕获jwt异常: {}", ex.getMessage());
         return Result.error(ex.getMessage());
     }

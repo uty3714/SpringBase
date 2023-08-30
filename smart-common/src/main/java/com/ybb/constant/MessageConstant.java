@@ -17,5 +17,10 @@ public class MessageConstant {
 
     public static final String PASSWORD_INCORRECT = "密码不正确!";
 
+    public static final String ADD_SQL_DATA_ERROR = "数据新增失败!";
+
+    public static final String DATA_SAVE_SUCCESS = "数据新增成功!";
+
+    public static final String QUERY_PATIENT_NOT_FOUND = "查询患者不存在";
 
 }

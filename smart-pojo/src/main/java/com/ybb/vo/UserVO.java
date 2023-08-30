@@ -16,7 +16,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class UserVO implements Serializable {
 
-    private Long userId;
+    private String userId;
     private String clinicId;
     private String userName;
     private String userToken;

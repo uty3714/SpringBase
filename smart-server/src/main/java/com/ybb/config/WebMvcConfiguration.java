@@ -17,15 +17,19 @@ import java.util.List;
 @Slf4j
 public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
-    @Autowired
+
     private JwtApiTokenInterceptor jwtApiTokenInterceptor;
+    @Autowired
+    public void setJwtApiTokenInterceptor(JwtApiTokenInterceptor jwtApiTokenInterceptor){
+        this.jwtApiTokenInterceptor = jwtApiTokenInterceptor;
+    }
 
     /**
      * http 响应修改 utf-8
      * @param converters converters
      */
     @Override
-    protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         for (HttpMessageConverter<?> converter : converters) {
             // 解决controller返回普通文本中文乱码问题
             if (converter instanceof StringHttpMessageConverter) {
@@ -39,11 +43,11 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     }
 
     @Override
-    protected void addInterceptors(InterceptorRegistry registry) {
+    public void addInterceptors(InterceptorRegistry registry) {
         log.info("开始注册自定义拦截器");
         //api的拦截
         registry.addInterceptor(jwtApiTokenInterceptor)
-                .addPathPatterns("api/**")
+                .addPathPatterns("/api/**")
                 .excludePathPatterns("/api/user/login");
 
         //后台的拦截写这里

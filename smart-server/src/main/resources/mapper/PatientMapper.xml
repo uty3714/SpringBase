@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ybb.mapper.PatientMapper">
+
+    <insert id="addNewPatient" useGeneratedKeys="true" keyProperty="patient_id" parameterType="com.ybb.entity.TabPatientEntity">
+        INSERT INTO tab_patient_main(patient_id,
+                                     clinic_id,
+                                     patient_name,
+                                     patient_sort_name,
+                                     patient_sex,
+                                     patient_age,
+                                     patient_birthday,
+                                     patient_phone,
+                                     patient_id_card,
+                                     patient_address,
+                                     patient_ill_history,
+                                     patient_allergic_history,
+                                     patient_diagnose,
+                                     patient_total_arrears,
+                                     patient_remark,
+                                     patient_status,
+                                     create_user,
+                                     update_user,
+                                     create_time,
+                                     update_time)
+        VALUES (#{patientId},
+                #{clinicId},
+                #{patientName},
+                #{patientSortName},
+                #{patientSex},
+                #{patientAge},
+                #{patientBirthday},
+                #{patientPhone},
+                #{patientIdCard},
+                #{patientAddress},
+                #{patientIllHistory},
+                #{patientAllergicHistory},
+                #{patientDiagnose},
+                #{patientTotalArrears},
+                #{patientRemark},
+                #{patientStatus},
+                #{createUser},
+                #{updateUser},
+                #{createTime},
+                #{updateTime})
+    </insert>
+
+    <select id="queryPatientInfo" parameterType="com.ybb.dto.patient.PatientQueryDTO" resultType="com.ybb.entity.TabPatientEntity">
+        select * from tab_patient_main
+        <where>
+            <if test="patientName != null and '' != patientName">
+                or patient_name like concat('%',#{patientName},'%')
+            </if>
+            <if test="patientSortName != null and '' != patientSortName">
+                or patient_sort_name like concat('%',#{patientSortName},'%')
+            </if>
+            <if test="patientPhone != null and '' != patientPhone">
+                or patient_phone like concat('%',#{patientPhone},'%')
+            </if>
+            <if test="patientIdCard != null and '' != patientIdCard">
+                or patient_id_card like concat('%',#{patientIdCard},'%')
+            </if>
+            and clinic_id = #{clinicId}
+        </where>
+    </select>
+
+</mapper>
