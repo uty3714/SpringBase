@@ -46,22 +46,29 @@
     </insert>
 
     <select id="queryPatientInfo" parameterType="com.ybb.dto.patient.PatientQueryDTO" resultType="com.ybb.entity.TabPatientEntity">
-        select * from tab_patient_main
+        select
+        patient_id,clinic_id,patient_name,patient_sort_name, patient_sex,patient_age,patient_birthday,
+        patient_phone,patient_id_card,patient_address,patient_ill_history,patient_allergic_history,
+        patient_diagnose,patient_total_arrears,patient_remark
+        from tab_patient_main
         <where>
-            <if test="patientName != null and '' != patientName">
-                or patient_name like concat('%',#{patientName},'%')
-            </if>
-            <if test="patientSortName != null and '' != patientSortName">
-                or patient_sort_name like concat('%',#{patientSortName},'%')
-            </if>
-            <if test="patientPhone != null and '' != patientPhone">
-                or patient_phone like concat('%',#{patientPhone},'%')
-            </if>
-            <if test="patientIdCard != null and '' != patientIdCard">
-                or patient_id_card like concat('%',#{patientIdCard},'%')
-            </if>
-            and clinic_id = #{clinicId} and patient_status = 1
+            clinic_id = #{clinicId} and patient_status = 1
+            <trim prefix="and (" suffix=")" prefixOverrides="or">
+                <if test="patientName != null and '' != patientName">
+                    or patient_name like concat('%',#{patientName},'%')
+                </if>
+                <if test="patientSortName != null and '' != patientSortName">
+                    or patient_sort_name like concat('%',#{patientSortName},'%')
+                </if>
+                <if test="patientPhone != null and '' != patientPhone">
+                    or patient_phone like concat('%',#{patientPhone},'%')
+                </if>
+                <if test="patientIdCard != null and '' != patientIdCard">
+                    or patient_id_card like concat('%',#{patientIdCard},'%')
+                </if>
+            </trim>
         </where>
+
     </select>
 
     <update id="updatePatientInfo" parameterType="com.ybb.dto.patient.PatientUpdateDTO">

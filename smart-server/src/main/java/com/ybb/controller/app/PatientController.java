@@ -44,7 +44,7 @@ public class PatientController {
         if (addResult) {
             return Result.success(MessageConstant.DATA_SAVE_SUCCESS);
         }
-        return Result.error(MessageConstant.ADD_SQL_DATA_ERROR);
+        return Result.error(MessageConstant.DATA_SAVE_FAILED);
     }
 
 
@@ -83,6 +83,22 @@ public class PatientController {
         }
         boolean result = patientService.updatePatientInfo(patientUpdateDTO);
         if (result) {
+            return Result.success(MessageConstant.DATA_UPDATE_SUCCESS);
+        }
+        return Result.error(MessageConstant.DATA_UPDATE_FAILED);
+    }
+
+
+    /**
+     * 删除指定患者
+     * @param patientId 患者id
+     * @return {}
+     */
+    @PostMapping("/delete/{patientId}")
+    public String deletePatient(@PathVariable String patientId){
+        log.info("删除患者信息: {}", patientId);
+        boolean result = patientService.deletePatient(patientId);
+        if(result){
             return Result.success(MessageConstant.DATA_UPDATE_SUCCESS);
         }
         return Result.error(MessageConstant.DATA_UPDATE_FAILED);

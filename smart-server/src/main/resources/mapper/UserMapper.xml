@@ -16,8 +16,7 @@
         FROM tab_user
         WHERE user_name = #{userName};
     </select>
-    
-    
+
     <select id="getUserByUserId" resultType="com.ybb.entity.TabUserEntity">
         SELECT user_id,
                clinic_id,
@@ -30,8 +29,8 @@
                user_role,
                user_remark
         FROM tab_user
-        WHERE  user_id = #{userId};
+        WHERE user_id = #{userId};
     </select>
-    
+
 
 </mapper>

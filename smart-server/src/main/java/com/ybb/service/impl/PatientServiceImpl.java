@@ -64,9 +64,7 @@ public class PatientServiceImpl implements IPatientService {
         entity.setPatientStatus(StatusConstant.ENABLE);
         SmartContextData currentData = BaseContext.getCurrentData();
         entity.setCreateUser(currentData.getUserId());
-        entity.setUpdateUser(currentData.getUserId());
         Date now = Calendar.getInstance().getTime();
-        entity.setCreateTime(now);
         entity.setCreateTime(now);
         //保存数据库
         int rowResult = patientMapper.addNewPatient(entity);
@@ -123,6 +121,27 @@ public class PatientServiceImpl implements IPatientService {
         //更新时间
         Date updateDate = Calendar.getInstance().getTime();
         patientUpdateDTO.setUpdateTime(updateDate);
+        int rowResult = patientMapper.updatePatientInfo(patientUpdateDTO);
+        return rowResult > 0;
+    }
+
+    /**
+     * 删除患者信息
+     *
+     * @param patientId 患者id
+     * @return 删除结果
+     */
+    @Override
+    public boolean deletePatient(String patientId) {
+        SmartContextData contextData = BaseContext.getCurrentData();
+        String clinicId = contextData.getClinicId();
+        PatientUpdateDTO patientUpdateDTO = new PatientUpdateDTO();
+        patientUpdateDTO.setPatientId(patientId);
+        patientUpdateDTO.setClinicId(clinicId);
+        patientUpdateDTO.setPatientStatus(StatusConstant.DISABLE);
+        patientUpdateDTO.setUpdateUser(contextData.getUserId());
+        Date now = Calendar.getInstance().getTime();
+        patientUpdateDTO.setUpdateTime(now);
         int rowResult = patientMapper.updatePatientInfo(patientUpdateDTO);
         return rowResult > 0;
     }

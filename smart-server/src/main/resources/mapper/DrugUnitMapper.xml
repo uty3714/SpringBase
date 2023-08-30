@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ybb.mapper.DrugUnitMapper">
+
+    <insert id="addNewDrugUnit" parameterType="com.ybb.entity.TabDrugUnitEntity">
+        INSERT INTO tab_drug_unit(unit_id,
+                                  clinic_id,
+                                  unit_name,
+                                  unit_category,
+                                  unit_sort,
+                                  unit_remark,
+                                  unit_status,
+                                  create_user,
+                                  update_user,
+                                  create_time,
+                                  update_time)
+        VALUES (#{unitId},
+                #{clinicId},
+                #{unitName},
+                #{unitCategory},
+                #{unitSort},
+                #{unitRemark},
+                #{unitStatus},
+                #{createUser},
+                #{updateUser},
+                #{createTime},
+                #{updateTime})
+    </insert>
+
+    <select id="queryUnitByCategory" resultType="com.ybb.entity.TabDrugUnitEntity">
+        select unit_id, clinic_id, unit_name, unit_sort, unit_remark
+        from tab_drug_unit
+        where unit_category = #{category}
+          and clinic_id = #{clinicId}
+          and unit_status = 1;
+    </select>
+
+    <update id="updateDrugUnitInfo" parameterType="com.ybb.dto.pharmacy.DrugUnitUpdateDTO">
+        update tab_drug_unit
+        <set>
+            <if test="unitName != null">unit_name = #{unitName},</if>
+            <if test="unitSort != null">unit_sort = #{unitSort},</if>
+            <if test="unitRemark != null">unit_remark = #{unitRemark},</if>
+            <if test="unitStatus != null">unit_status = #{unitStatus},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        <where>
+            clinic_id = #{clinicId} and unit_id = #{unitId}
+            <if test="unitCategory != null">
+                and unit_category = #{unitCategory}
+            </if>
+
+        </where>
+    </update>
+
+
+</mapper>

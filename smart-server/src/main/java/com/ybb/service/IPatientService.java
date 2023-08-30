@@ -31,4 +31,11 @@ public interface IPatientService {
      */
     boolean updatePatientInfo(PatientUpdateDTO patientUpdateDTO);
 
+    /**
+     * 删除患者信息
+     * @param patientId 患者id
+     * @return 删除结果
+     */
+    boolean deletePatient(String patientId);
+
 }
