@@ -3,6 +3,7 @@ package com.ybb.mapper;
 import com.ybb.dto.pharmacy.DrugUnitUpdateDTO;
 import com.ybb.entity.TabDrugUnitEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface DrugUnitMapper {
      * @param category 分类
      * @return list
      */
-    List<TabDrugUnitEntity> queryUnitByCategory(String clinicId,Integer category);
+    List<TabDrugUnitEntity> queryUnitByCategory(@Param("clinicId")String clinicId,@Param("category") Integer category);
 
     /**
      * 更新药品单位信息

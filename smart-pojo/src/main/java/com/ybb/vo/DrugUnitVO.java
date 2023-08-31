@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * 药品单位请求返回实体
+ */
 @Data
 @ToString
 @AllArgsConstructor

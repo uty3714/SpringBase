@@ -73,9 +73,5 @@ public class PatientVO {
      * 备注
      */
     private String patientRemark;
-    /**
-     * 患者状态 1可用0 停用
-     */
-    private Integer patientStatus;
 
 }

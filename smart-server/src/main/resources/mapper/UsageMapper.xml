@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ybb.mapper.UsageMapper">
+
+    <insert id="addNewUsage" useGeneratedKeys="true" keyProperty="usageId"
+            parameterType="com.ybb.entity.TabUsageEntity">
+        insert into tab_usage(usage_id,
+                              clinic_id,
+                              usage_name,
+                              usage_category,
+                              usage_sort,
+                              usage_remark,
+                              usage_status,
+                              create_user,
+                              update_user,
+                              create_time,
+                              update_time)
+        values (#{usageId},
+                #{clinicId},
+                #{usageName},
+                #{usageCategory},
+                #{usageSort},
+                #{usageRemark},
+                #{usageStatus},
+                #{createUser},
+                #{updateUser},
+                #{createTime},
+                #{updateTime})
+    </insert>
+
+
+<!--    <select id="queryUsageByCategory" resultType="com.ybb.entity.TabUsageEntity">-->
+<!--        select usage_id, clinic_id, usage_name, usage_category, usage_sort, usage_remark, usage_status from tab_usage-->
+<!--        where clinic_id = #{} and usage_category = #{} and usage_status = 1-->
+<!--    </select>-->
+
+
+    <update id="updateUsageInfo" parameterType="com.ybb.dto.pharmacy.UsageUpdateDTO">
+        update tab_usage
+        <set>
+            <if test="usageName != null">usage_name = #{usageName},</if>
+            <if test="usageSort != null">usage_sort = #{usageSort},</if>
+            <if test="usageRemark != null">usage_remark = #{usageRemark},</if>
+            <if test="usageStatus != null">usage_status = #{usageStatus},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        <where>
+            usage_id = #{usageId} and clinic_id = #{clinicId}
+            <if test="usageCategory != null">
+                and usage_category = #{usageCategory}
+            </if>
+        </where>
+    </update>
+
+</mapper>

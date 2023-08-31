@@ -50,7 +50,6 @@
             <if test="unitCategory != null">
                 and unit_category = #{unitCategory}
             </if>
-
         </where>
     </update>
 

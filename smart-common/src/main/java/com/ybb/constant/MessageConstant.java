@@ -8,6 +8,8 @@ public class MessageConstant {
     public static final String PARAMETER_NULL_EXCEPTION = "必要参数为空!";
     public static final String DATA_EXCEPTION = "数据异常";
 
+    public static final String DATA_EMPTY = "数据为空!";
+
     public static final String CURRENT_USER_ID = "当前用户id: ";
 
     public static final String USER_TOKEN_PARSE_ERROR = "用户token解析异常";

@@ -2,6 +2,7 @@ package com.ybb.mapper;
 
 import com.ybb.entity.TabUserEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
@@ -13,7 +14,7 @@ public interface UserMapper {
      * @return 用户信息
      */
     //@Select("SELECT user_id,clinic_id,user_name, user_pwd,doctor_name,user_sex, user_id_card, user_phone, user_role, user_remark FROM tab_user WHERE user_name = #{userName};")
-    TabUserEntity getUserByUserName(String userName);
+    TabUserEntity getUserByUserName(@Param("userName")String userName);
 
     /**
      * 根据用户id查询该用户的信息
@@ -21,6 +22,6 @@ public interface UserMapper {
      * @return userInfo
      */
     //@Select("SELECT user_id,clinic_id,user_name, user_pwd,doctor_name,user_sex, user_id_card, user_phone, user_role, user_remark FROM tab_user WHERE user_id = #{userId};")
-    TabUserEntity getUserByUserId(Long userId);
+    TabUserEntity getUserByUserId(@Param("userId") Long userId);
 
 }

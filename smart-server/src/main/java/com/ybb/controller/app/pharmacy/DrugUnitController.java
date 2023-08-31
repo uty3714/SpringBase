@@ -62,7 +62,7 @@ public class DrugUnitController {
         if (drugUnitVOS.size() > 0) {
             return Result.success(drugUnitVOS);
         }
-        return Result.error(MessageConstant.DATA_EXCEPTION);
+        return Result.error(MessageConstant.DATA_EMPTY);
     }
 
     /**
