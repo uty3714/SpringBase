@@ -43,7 +43,7 @@ ybb:
     # 设置jwt签名加密时使用的秘钥
     jwt_secret_key: smart_ybb
     # 设置jwt过期时间
-    jwt-ttl: 7200000
+    jwt-ttl: 86400000
     # 设置前端传递过来的令牌名称
     jwt-token-name: token
     # 设置诊所id名称
